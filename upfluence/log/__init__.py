@@ -2,7 +2,7 @@ import os
 import logging
 import tornado.log
 
-default_level = "NOTICE"
+default_level = 'WARNING'
 
 channel = logging.StreamHandler()
 channel.setFormatter(tornado.log.LogFormatter(color=False))
