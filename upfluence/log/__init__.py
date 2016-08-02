@@ -7,7 +7,7 @@ default_level = 'WARNING'
 channel = logging.StreamHandler()
 channel.setFormatter(tornado.log.LogFormatter(color=False))
 
-logger = logging.getLogger('upfluence')
+logger = logging.getLogger()
 logger.addHandler(channel)
 
 logger.setLevel(
