@@ -7,7 +7,7 @@ class Client(object):
                  extra={}):
         self.extra = extra
         self.base_service = None
-        self._client = opbeat.OpbeatClient(
+        self._client = opbeat.Client(
             organization_id=organization_id, app_id=app_id,
             secret_token=secret_token,
             hostname=hostname or socket.gethostname())
