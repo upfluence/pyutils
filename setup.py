@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='upfluence-utils',
-      version='0.1.2',
+      version='0.1.3',
       description='set of utils used at Upfluence',
       author='Alexis Montagne',
       author_email='alexis.montagne@upfluence.co',
