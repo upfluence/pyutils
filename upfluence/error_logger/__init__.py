@@ -1,3 +1,4 @@
+import sys
 import os
 import opbeat_wrapper
 import noop
@@ -10,3 +11,8 @@ if os.environ.get('OPBEAT_APP_ID', None):
         os.environ.get('UNIT_NAME'))
 else:
     client = noop.Client()
+
+
+def notify_event(*args, **kwargs):
+    if sys.exc_info()[0]:
+        client.capture_exception(*args, **kwargs)
