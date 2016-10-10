@@ -6,7 +6,7 @@ import base.base_service.constants
 import version
 
 
-class BaseService(object):
+class BaseHandler(object):
     def __init__(self, unit_name=None, interface_modules=[]):
         self._unit_name = unit_name or os.environ.get('UNIT_NAME')
         self._spawn_date = int(time.time())
