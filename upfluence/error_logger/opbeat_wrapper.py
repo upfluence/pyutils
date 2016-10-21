@@ -1,5 +1,5 @@
 import socket
-import opbeat.base
+import opbeat
 
 
 class Client(object):
@@ -7,16 +7,20 @@ class Client(object):
                  extra={}):
         self.extra = extra
         self.base_service = None
-        self._client = opbeat.base.Client(
+        self._client = opbeat.Client(
             organization_id=organization_id, app_id=app_id,
             secret_token=secret_token,
             hostname=hostname or socket.gethostname())
 
     def _build_base_extra(self):
         extras = {}
-        versions = self.base_service.getInterfaceVersion()
-        versions.update({
-            self.base_service.getName(): self.base_service.getVersion()})
+
+        if self.base_service:
+            versions = self.base_service.getInterfaceVersion()
+            versions.update({
+                self.base_service.getName(): self.base_service.getVersion()})
+        else:
+            versions = {}
 
         for name, version in versions.iteritems():
             if version.git_version:
@@ -33,5 +37,8 @@ class Client(object):
         return extras
 
     def capture_exception(self, *args, **kwargs):
-        kwargs['extra'] = dict(kwargs.get('extra', {}), **self.extra)
+        kwargs['extra'] = dict(
+            kwargs.get('extra', {}), **dict(
+                self.extra, **self._build_base_extra()))
+
         self._client.capture_exception(*args, **kwargs)
